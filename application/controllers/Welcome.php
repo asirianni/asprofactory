@@ -3,6 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Welcome extends CI_Controller {
 
+        public $pagina;
 	/**
 	 * Index Page for this controller.
 	 *
@@ -27,9 +28,83 @@ class Welcome extends CI_Controller {
             $this->load->library('form_validation');
             $this->load->library('email');
             $this->load->library('session');
+            $this->load->library('Pagina');
+            
+            
+            $this->pagina= new Pagina();
 	}
 	public function index()
 	{
             $this->load->view('home/ingreso');
+	}
+        
+        public function acceso()
+        {
+            $pagina = new Pagina();
+            $pagina->generar_pagina_loguin();
+            $vista["pagina"]=$pagina;
+            $vista["salida_error"]="";
+            $this->load->view('loguin', $vista);
+	}
+        
+       
+        
+        public function validar_usuario(){
+            $pagina = new Pagina();
+            $pagina->generar_pagina_loguin();
+            $output["pagina"]=$pagina;
+            
+            //$this->form_validation->set_rules('usuario', 'Usuario', 'trim|required|valid_email');
+            $this->form_validation->set_rules('usuario', 'Usuario', 'required');
+            $this->form_validation->set_rules('pass', 'Pass', 'required');
+            $this->form_validation->set_message(
+                            'required', 'Valor requerido. No lo deje en blanco');
+            //$this->form_validation->set_message(
+                            //'valid_email', 'Ingrese con mail valido. Ej. jose@suempresa.com');
+            if ($this->form_validation->run() == FALSE){
+                $output['salida_error']="";
+                $this->load->view('loguin', $output);
+                
+            }else{
+                $usuario_ingresado = $this->input->post("usuario");
+                $pass_ingresado = $this->input->post("pass");
+                
+                $this->load->model("Usuarios_model");
+                
+                $usuario = $this->Usuarios_model->getUsuario($usuario_ingresado,$pass_ingresado);
+                
+                if($usuario)
+                {
+                    $datos = Array(
+                        "dni"=>$usuario["dni"],
+                        "correo"=>$usuario["correo"],
+                        "usuario"=>$usuario["usuario"],
+                        "pass"=>$usuario["pass"],
+                        "nombre"=>$usuario["nombre"],
+                        "apellido"=>$usuario["apellido"],
+                        "telefono"=>$usuario["telefono"],
+                        "movil"=>$usuario["movil"],
+                        "tipo_usuario"=>$usuario["tipo_usuario"],
+                        "direccion"=>$usuario["direccion"],
+                        "imagen"=>$usuario["imagen"],
+                        "inicio"=>$usuario["inicio"],
+                        "operativo"=>$usuario["operativo"],
+                    );
+                    
+                    $this->session->set_userdata($datos);
+                    
+                    
+                    if($usuario["tipo_usuario"] == "1")
+                    {
+                        redirect("Administrador");
+                    }
+                }
+                else
+                {
+                    $output['salida_error']="Datos incorrectos";
+                    $this->load->view('loguin', $output);
+                }
+                
+            }
 	}
 }
