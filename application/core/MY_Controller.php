@@ -125,6 +125,44 @@ class Super_Controller extends CI_Controller{
         }
     }
     
+    
+    public function abm_imagenes_slider()
+	{
+            if (true) {
+                try{
+                
+                $crud = new Grocery_CRUD();
+                $crud->set_table("home_slider");
+                
+                $crud->required_fields('titulo','descripcion','imagen');
+                
+                $crud->columns(array('codigo','titulo','descripcion','imagen'));
+                $crud->set_field_upload('imagen','recursos/images/');
+                $output_detalle = $crud->render();
+                $texto_pagina="Administrar";
+                $leyenda="vehiculos";        
+                
+                $imagen=base_url()."recursos/img/empleados/".$this->session->userdata('imagen');
+                $dni=$this->session->userdata('dni');
+                $nombre=$this->session->userdata('nombre');
+                $apellido=$this->session->userdata('apellido');
+                $vista["menu"] = $this->pagina->menu_administrador($imagen, $dni, $nombre, $apellido);
+                $vista["cabecera"] = $this->pagina->cabecera_administrador($imagen, $dni, $nombre, $apellido);
+                $vista["seccion"] = "Escritorio";
+                $vista["config"] = $this->pagina->generar_configuraciones();
+                $this->load->view('administrador/cabecera.php',$vista);
+                $this->load->view('administrador/detalle.php',$output_detalle);
+                $this->load->view('administrador/pie.php',$vista);
+                
+                
+                }catch(Exception $e){
+			show_error($e->getMessage().' --- '.$e->getTraceAsString());
+		}
+            }  else {
+                redirect('/welcome/acceso');
+            }
+	}
+    
     public function cerrar_sesion()
     {
         $this->session->sess_destroy();

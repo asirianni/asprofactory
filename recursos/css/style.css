@@ -154,6 +154,7 @@ nav.fill ul li a:hover:after {
 }
 /*-- //top-nav --*/
 /*-- banner --*/
+/*
 .banner1{
 	background:url(../images/2.jpg) no-repeat 0px 0px;
 	background-size:cover;
@@ -178,6 +179,7 @@ nav.fill ul li a:hover:after {
 	-o-background-size:cover;
 	-ms-background-size:cover;
 }
+*/
 .banner1-info,.banner1,.banner2,.banner3{
 	min-height:500px;
 }

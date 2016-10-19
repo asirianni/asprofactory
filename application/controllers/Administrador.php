@@ -21,6 +21,7 @@ class Administrador extends Super_Controller
         
         $this->load->library("session");
         $this->load->library("Pagina");
+        $this->load->library("Grocery_CRUD");
         
         $this->pagina = new Pagina();
     }

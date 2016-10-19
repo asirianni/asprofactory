@@ -23,6 +23,24 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- //js -->
 <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
 <link href='//fonts.googleapis.com/css?family=Syncopate:400,700' rel='stylesheet' type='text/css'>
+
+<style>
+    <?php
+        $imagenes_slider = $template->getImagenesSlider();
+        
+        for($i=0;$i < count($imagenes_slider);$i++)
+        {
+            echo ".banner".($i+1)."{
+                            background:url(".  base_url()."recursos/images/".$imagenes_slider[$i]["imagen"].") no-repeat 0px 0px;
+                            background-size:cover;
+                            -webkit-background-size:cover;
+                            -moz-background-size:cover;
+                            -o-background-size:cover;
+                            -ms-background-size:cover;
+                    }";
+        }
+    ?>
+</style>
 </head>
 	
 <body>
@@ -30,71 +48,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="banner-body">
 		<div class="container">
 			<div class="banner-body-content">
-				<div class="top-nav">
-					<nav class="navbar navbar-default">
-						<!-- Brand and toggle get grouped for better mobile display -->
-						<div class="navbar-header">
-						  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-							<span class="sr-only">Toggle navigation</span>
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-						  </button>
-						</div>
-
-						<!-- Collect the nav links, forms, and other content for toggling -->
-						<div class="collapse navbar-collapse nav-wil" id="bs-example-navbar-collapse-1">
-							<nav class="fill">
-								<ul class="nav navbar-nav">
-									<li class="active"><a href="index.html">Home</a></li>
-									<li><a href="services.html">Services</a></li>
-									<li><a href="events.html">News & Events</a></li>
-									<li><a href="short-codes.html">Short Codes</a></li>
-									<li><a href="gallery.html">Gallery</a></li>
-									<li><a href="mail.html">Mail Us</a></li>
-								</ul>
-							</nav>
-						</div>
-						<!-- /.navbar-collapse -->
-					</nav>
-				</div>
-				<div class="banner">
-					<div class="wmuSlider example1">
-						<div class="wmuSliderWrapper">
-							<article style="position: absolute; width: 100%; opacity: 0;"> 
-								<div class="banner-wrap">
-									<div class="banner1">
-										<div class="banner1-info">
-											<a href="index.html">Photographer <span>Make Yourself Beauty</span></a>
-										</div>
-									</div>
-								</div>
-							</article>
-							<article style="position: absolute; width: 100%; opacity: 0;"> 
-								<div class="banner-wrap">
-									<div class="banner2">
-										<div class="banner1-info">
-											<a href="index.html">Photographer <span>Make Yourself Beauty</span></a>
-										</div>
-									</div>
-								</div>
-							</article>
-							<article style="position: absolute; width: 100%; opacity: 0;"> 
-								<div class="banner-wrap">
-									<div class="banner3">
-										<div class="banner1-info">
-											<a href="index.html">Photographer <span>Make Yourself Beauty</span></a>
-										</div>
-									</div>
-								</div>
-							</article>
-						</div>
-					</div>
-							<script src="<?php echo base_url(); ?>/recursos/js/jquery.wmuSlider.js"></script> 
-							<script>
-								$('.example1').wmuSlider();         
-							</script> 
-				</div>
+				<?php
+                                 echo $template->getMenu();
+                                ?>
+                                <!-- BANNER -->
+				<?php
+                                 echo $template->getBanner();
+                                ?>
+                                <!-- FIN BANNER -->
+                                
 				<div class="banner-bottom">
 					<div class="col-md-7 banner-bottom-left">
 						<div class="banner-bottom-left1">

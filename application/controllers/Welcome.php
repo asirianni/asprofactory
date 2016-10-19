@@ -4,6 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Welcome extends CI_Controller {
 
         public $pagina;
+        public $template;
 	/**
 	 * Index Page for this controller.
 	 *
@@ -29,13 +30,18 @@ class Welcome extends CI_Controller {
             $this->load->library('email');
             $this->load->library('session');
             $this->load->library('Pagina');
+            $this->load->library('Template');
+            
             
             
             $this->pagina= new Pagina();
+            $this->template = new Template();
 	}
 	public function index()
 	{
-            $this->load->view('home/ingreso');
+            $salida["template"]= $this->template;
+            
+            $this->load->view('home/ingreso',$salida);
 	}
         
         public function acceso()
