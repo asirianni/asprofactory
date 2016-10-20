@@ -37,12 +37,48 @@ class Welcome extends CI_Controller {
             $this->pagina= new Pagina();
             $this->template = new Template();
 	}
+        
 	public function index()
 	{
             $salida["template"]= $this->template;
+            $salida["contenido"]= $this->template->getPrincipal();
             
             $this->load->view('home/ingreso',$salida);
 	}
+        
+        public function servicios()
+	{
+            $salida["template"]= $this->template;
+            $salida["contenido"]= $this->template->getServicios();
+            
+            $this->load->view('home/ingreso',$salida);
+	}
+        
+        public function calculo_obra()
+	{
+            $salida["template"]= $this->template;
+            $salida["contenido"]= $this->template->getCalculoObras();
+            
+            $this->load->view('home/ingreso',$salida);
+	}
+        
+        public function contacto()
+	{
+            $salida["template"]= $this->template;
+            $salida["contenido"]= $this->template->getContacto();
+            
+            $this->load->view('home/ingreso',$salida);
+	}
+        
+        public function obras()
+	{
+            $salida["template"]= $this->template;
+            $salida["contenido"]= $this->template->getObras();
+            
+            $this->load->view('home/ingreso',$salida);
+	}
+        
+        
         
         public function acceso()
         {
