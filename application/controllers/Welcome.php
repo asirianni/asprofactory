@@ -42,6 +42,7 @@ class Welcome extends CI_Controller {
 	{
             $salida["template"]= $this->template;
             $salida["contenido"]= $this->template->getPrincipal();
+            $salida["seccion"]="principal";
             
             $this->load->view('home/ingreso',$salida);
 	}
@@ -50,7 +51,7 @@ class Welcome extends CI_Controller {
 	{
             $salida["template"]= $this->template;
             $salida["contenido"]= $this->template->getServicios();
-            
+            $salida["seccion"]="servicios";
             $this->load->view('home/ingreso',$salida);
 	}
         
@@ -58,6 +59,7 @@ class Welcome extends CI_Controller {
 	{
             $salida["template"]= $this->template;
             $salida["contenido"]= $this->template->getCalculoObras();
+            $salida["seccion"]="calculo_obra";
             
             $this->load->view('home/ingreso',$salida);
 	}
@@ -66,7 +68,7 @@ class Welcome extends CI_Controller {
 	{
             $salida["template"]= $this->template;
             $salida["contenido"]= $this->template->getContacto();
-            
+            $salida["seccion"]="contacto";
             $this->load->view('home/ingreso',$salida);
 	}
         
@@ -74,7 +76,7 @@ class Welcome extends CI_Controller {
 	{
             $salida["template"]= $this->template;
             $salida["contenido"]= $this->template->getObras();
-            
+            $salida["seccion"]="obras";
             $this->load->view('home/ingreso',$salida);
 	}
         
@@ -149,4 +151,27 @@ class Welcome extends CI_Controller {
                 
             }
 	}
+        
+    public function getPresupuesto()
+    {
+        if($this->input->is_ajax_request())
+        {
+            $cantidad = $this->input->post("cantidad");
+            $rubro = $this->input->post("rubro");
+            
+            $this->load->model("Precios_model");
+            
+            $rubro= $this->Precios_model->getPrecioRelacionado($rubro);
+            
+            $html ="<p style='color: #F00;'>Su presupuesto estimado es de</p>
+                    <p style='color: #FFF;'>Tipo: ".$rubro["descripcion"]."</p>
+                    <p style='color: #FFF;'>Precio: $".$rubro["precio"]." ".$rubro["valor"]."</p>
+                    <p style='color: #FFF;'>Cantidad: $cantidad</p>";
+                    $total = (float)$rubro["precio"] * (float)$cantidad;
+            $html.="<p style='color: #FFF;'>Total: $".$total."</p>
+                    <input type='button' class='btn btn-default pull-right' style='color: #fff;font-weight: bold;background-color:#f65a5b;border-color:#f65a5b;' onClick='volver_a_presupuestar()' value='Volver'>";
+            
+            echo json_encode($html);
+        }
+    }
 }

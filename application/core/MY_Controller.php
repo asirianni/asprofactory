@@ -127,10 +127,11 @@ class Super_Controller extends CI_Controller{
     
     
     public function abm_imagenes_slider()
-	{
-            if (true) {
-                try{
-                
+    {
+        if (true) 
+        {
+            try
+            {
                 $crud = new Grocery_CRUD();
                 $crud->set_table("home_slider");
                 
@@ -155,14 +156,190 @@ class Super_Controller extends CI_Controller{
                 $this->load->view('administrador/pie.php',$vista);
                 
                 
-                }catch(Exception $e){
+                }
+                catch(Exception $e)
+                {
 			show_error($e->getMessage().' --- '.$e->getTraceAsString());
 		}
-            }  else {
+            }  
+            else 
+            {
                 redirect('/welcome/acceso');
             }
 	}
+        
+    public function abm_rubros()
+    {
+        if (true) 
+        {
+            try
+            {
+                
+                $crud = new Grocery_CRUD();
+                $crud->set_table("rubros");
+                
+                $crud->required_fields('descripcion');
+                
+                $crud->columns(array('codigo','descripcion'));
+                $output_detalle = $crud->render();
+                $texto_pagina="Administrar";
+                $leyenda="vehiculos";        
+                
+                $imagen=base_url()."recursos/img/empleados/".$this->session->userdata('imagen');
+                $dni=$this->session->userdata('dni');
+                $nombre=$this->session->userdata('nombre');
+                $apellido=$this->session->userdata('apellido');
+                $vista["menu"] = $this->pagina->menu_administrador($imagen, $dni, $nombre, $apellido);
+                $vista["cabecera"] = $this->pagina->cabecera_administrador($imagen, $dni, $nombre, $apellido);
+                $vista["seccion"] = "Escritorio";
+                $vista["config"] = $this->pagina->generar_configuraciones();
+                $this->load->view('administrador/cabecera.php',$vista);
+                $this->load->view('administrador/detalle.php',$output_detalle);
+                $this->load->view('administrador/pie.php',$vista);
+                
+                
+            }
+            catch(Exception $e)
+            {
+                show_error($e->getMessage().' --- '.$e->getTraceAsString());
+            }
+        }  
+        else 
+        {
+            redirect('/welcome/acceso');
+        }
+        
+    }
     
+    public function abm_servicios()
+    {
+        if (true) 
+        {
+            try
+            {
+                
+                $crud = new Grocery_CRUD();
+                $crud->set_table("servicios");
+                
+                $crud->required_fields('descripcion');
+                
+                $crud->columns(array('codigo','descripcion'));
+                $output_detalle = $crud->render();
+                $texto_pagina="Administrar";
+                $leyenda="vehiculos";        
+                
+                $imagen=base_url()."recursos/img/empleados/".$this->session->userdata('imagen');
+                $dni=$this->session->userdata('dni');
+                $nombre=$this->session->userdata('nombre');
+                $apellido=$this->session->userdata('apellido');
+                $vista["menu"] = $this->pagina->menu_administrador($imagen, $dni, $nombre, $apellido);
+                $vista["cabecera"] = $this->pagina->cabecera_administrador($imagen, $dni, $nombre, $apellido);
+                $vista["seccion"] = "Escritorio";
+                $vista["config"] = $this->pagina->generar_configuraciones();
+                $this->load->view('administrador/cabecera.php',$vista);
+                $this->load->view('administrador/detalle.php',$output_detalle);
+                $this->load->view('administrador/pie.php',$vista);
+                
+                
+            }
+            catch(Exception $e)
+            {
+                show_error($e->getMessage().' --- '.$e->getTraceAsString());
+            }
+        }
+        else 
+        {
+            redirect('/welcome/acceso');
+        }
+    }
+        
+    public function abm_precios()
+    {
+        if (true) 
+        {
+            try
+            {
+                
+                $crud = new Grocery_CRUD();
+                $crud->set_table("precios");
+                
+                $crud->set_relation("rubro", "rubros", "descripcion");
+                $crud->set_relation("tipo_valor", "tipo_valor", "valor");
+                $crud->required_fields('rubro','precio','tipo_valor');
+                
+                $crud->columns(array('codigo','rubro','precio','tipo_valor'));
+                $output_detalle = $crud->render();
+                $texto_pagina="Administrar";
+                $leyenda="vehiculos";        
+                
+                $imagen=base_url()."recursos/img/empleados/".$this->session->userdata('imagen');
+                $dni=$this->session->userdata('dni');
+                $nombre=$this->session->userdata('nombre');
+                $apellido=$this->session->userdata('apellido');
+                $vista["menu"] = $this->pagina->menu_administrador($imagen, $dni, $nombre, $apellido);
+                $vista["cabecera"] = $this->pagina->cabecera_administrador($imagen, $dni, $nombre, $apellido);
+                $vista["seccion"] = "Escritorio";
+                $vista["config"] = $this->pagina->generar_configuraciones();
+                $this->load->view('administrador/cabecera.php',$vista);
+                $this->load->view('administrador/detalle.php',$output_detalle);
+                $this->load->view('administrador/pie.php',$vista);
+                
+                
+            }
+            catch(Exception $e)
+            {
+                show_error($e->getMessage().' --- '.$e->getTraceAsString());
+            }
+        }
+        else 
+        {
+            redirect('/welcome/acceso');
+        }
+    }
+    
+    public function abm_obras()
+    {
+        if (true) 
+        {
+            try
+            {
+                $crud = new Grocery_CRUD();
+                $crud->set_table("foto_obras");
+                
+                $crud->set_relation("rubro", "rubros", "descripcion");
+                $crud->required_fields('rubro','imagen','descripcion');
+                
+                $crud->columns(array('codigo','rubro','imagen','descripcion'));
+                $crud->set_field_upload('imagen','recursos/images/');
+                $output_detalle = $crud->render();
+                $texto_pagina="Administrar";
+                $leyenda="vehiculos";        
+                
+                $imagen=base_url()."recursos/img/empleados/".$this->session->userdata('imagen');
+                $dni=$this->session->userdata('dni');
+                $nombre=$this->session->userdata('nombre');
+                $apellido=$this->session->userdata('apellido');
+                $vista["menu"] = $this->pagina->menu_administrador($imagen, $dni, $nombre, $apellido);
+                $vista["cabecera"] = $this->pagina->cabecera_administrador($imagen, $dni, $nombre, $apellido);
+                $vista["seccion"] = "Escritorio";
+                $vista["config"] = $this->pagina->generar_configuraciones();
+                $this->load->view('administrador/cabecera.php',$vista);
+                $this->load->view('administrador/detalle.php',$output_detalle);
+                $this->load->view('administrador/pie.php',$vista);
+                
+                
+                }
+                catch(Exception $e)
+                {
+			show_error($e->getMessage().' --- '.$e->getTraceAsString());
+		}
+            }  
+            else 
+            {
+                redirect('/welcome/acceso');
+            }
+	}
+        
     public function cerrar_sesion()
     {
         $this->session->sess_destroy();

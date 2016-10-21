@@ -89,7 +89,11 @@ class Pagina
                     <li class='header'>MENU</li>
                     <!-- Optionally, you can add icons to the links -->
                     <li class='active'><a href='".base_url()."index.php/Administrador/abm_imagenes_slider'><i class='fa fa-calendar-times-o'></i> <span>Home Slider</span></a></li>
-                    <li class='active'><a href='".base_url()."index.php/Administrador/abm_imagenes_slider'><i class='fa fa-calendar-times-o'></i> <span>Home Slider</span></a></li>
+                    <li class='active'><a href='".base_url()."index.php/Administrador/abm_rubros'><i class='fa fa-calendar-times-o'></i> <span>Rubros</span></a></li>
+                    <li class='active'><a href='".base_url()."index.php/Administrador/abm_servicios'><i class='fa fa-calendar-times-o'></i> <span>Servicios</span></a></li>
+                    <li class='active'><a href='".base_url()."index.php/Administrador/abm_precios'><i class='fa fa-calendar-times-o'></i> <span>Precios</span></a></li>
+                    <li class='active'><a href='".base_url()."index.php/Administrador/abm_obras'><i class='fa fa-calendar-times-o'></i> <span>Obras</span></a></li>
+                    
                     <li class='treeview'>
                         <a href='".site_url('administrador/caja')."'><i class='fa fa-calculator'></i> <span>Caja</span></a>
                     </li>

@@ -17,14 +17,23 @@ class Template
     //put your code here
     
     public $imagenes_slider;
+    public $rubros;
+    public $servicios;
+    public $fotos_obras;
     public $ci;
     
     public function __construct() {
         
         $this->ci= &get_instance();
         $this->ci->load->model("Slider_model");
+        $this->ci->load->model("Rubros_model");
+        $this->ci->load->model("Servicios_model");
+        $this->ci->load->model("Obras_model");
         
         $this->imagenes_slider = $this->ci->Slider_model->getImagenesSlider();
+        $this->rubros= $this->ci->Rubros_model->getRubros();
+        $this->servicios= $this->ci->Servicios_model->getServicios();
+        $this->fotos_obras= $this->ci->Obras_model->getFotosObras();
     }
     public function getMenu()
     {
@@ -46,11 +55,11 @@ class Template
 						<div class='collapse navbar-collapse nav-wil' id='bs-example-navbar-collapse-1'>
 							<nav class='fill'>
 								<ul class='nav navbar-nav'>
-									<li class='active'><a href='".base_url()."'>Principal</a></li>
-									<li><a href='".base_url()."index.php/Welcome/servicios'>Servicios</a></li>
-									<li><a href='".base_url()."index.php/Welcome/calculo_obra'>Calculo obra</a></li>
-									<li><a href='".base_url()."index.php/Welcome/obras'>Obras</a></li>
-									<li><a href='".base_url()."index.php/Welcome/contacto'>Contacto</a></li>
+									<li id='seccion_principal'><a href='".base_url()."'>Principal</a></li>
+									<li id='seccion_servicios'><a href='".base_url()."index.php/Welcome/servicios'>Servicios</a></li>
+									<li id='seccion_calculo_obra'><a href='".base_url()."index.php/Welcome/calculo_obra'>Calculo obra</a></li>
+									<li id='seccion_obras'><a href='".base_url()."index.php/Welcome/obras'>Obras</a></li>
+									<li id='seccion_contacto'><a href='".base_url()."index.php/Welcome/contacto'>Contacto</a></li>
 								</ul>
 							</nav>
 						</div>
@@ -151,13 +160,10 @@ class Template
 				</div>
 			</div>
 			<div class='col-md-6 footer-top-grid'>
-				<h3>Siguenos en Face</span></h3>
-				<ul class='twi'>
-					<li>I like this awesome freebie. Check it out <a href='mailto:info@example.com' class='mail'>
-					@http://t.co/9vslJFpW</a> <span>ABOUT 15 MINS</span></li>
-					<li>I like this awesome freebie. You can view it online here<a href='mailto:info@example.com' class='mail'>
-					@http://t.co/9vslJFpW</a> <span>ABOUT 2 HOURS AGO</span></li>
-				</ul>
+				<h3 class='text-center'>Siguenos en Face</span></h3>
+                                <div style='text-align: center'>
+                                    <iframe src='https://www.facebook.com/plugins/page.php?href=https://www.facebook.com/JuanCa-Mantenimiento-1847658142137102&tabs=timeline&width=340&height=500&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=true&appId=305385032949578' width='340' height='280' style='border:none;overflow:hidden' scrolling='no' frameborder='0' allowTransparency='true'></iframe>
+                                </div>
 			</div>
 			<!--<div class='col-md-3 footer-top-grid'>
 				<h3>Flickr <span>Feed</span></h3>
@@ -194,7 +200,7 @@ class Template
 		<div class='container'>
 			<div class='footer-left'>
 				<ul>
-					<li><a href='index.html'><i>JuanCa</i>Mantenimiento</a><span> |</span></li>
+					<li><a href='#' onClick='return false;'><i>JuanCa</i>Mantenimiento</a><span> |</span></li>
 					<li><p>Movil/Wathapp:  <span>1136504413</span></p></li>
 				</ul>
 			</div>
@@ -220,54 +226,77 @@ class Template
         "<div class='banner-bottom'>
 					<div class='col-md-7 banner-bottom-left'>
 						<div class='banner-bottom-left1'>
-							<h2>Welcome to our Photography</h2>
+							<h2>Bienvenido</h2>
 							<div class='col-md-4 banner-bottom-left1-gridl'>
-								<img src='<?php echo base_url(); ?>/recursos/images/4.jpg' alt=' ' class='img-responsive' />
+								<img src='".base_url()."recursos/images/img_1.jpg' alt=' ' class='img-responsive' />
 							</div>
 							<div class='col-md-8 banner-bottom-left1-gridr'>
-								<p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.</p>
-								<ul>
-									<li><a href='single.html'>Sed ut perspiciatis unde omnis</a></li>
-									<li><a href='single.html'>But I must explain to you</a></li>
-									<li><a href='single.html'>Neque porro quisquam est, qui</a></li>
-								</ul>
+								<p>Nos especializamos en los siguientes rubros:</p>
+								<ul>";
+                                                                    for($i=0; $i < count($this->rubros);$i++)
+                                                                    {
+                                                                        $html.="<li><a href='#' onClick='return false;'>".$this->rubros[$i]["descripcion"]."</a></li><br>";
+                                                                    }
+                                                        $html.="</ul>
 							</div>
 							<div class='clearfix'> </div>
 						</div>
 						<div class='banner-bottom-left2'>
-							<h3>Offered Services</h3>
+							<h3>Servicios</h3>
 							<div class='col-md-4 banner-bottom-left2l'>
-								<img src='<?php echo base_url(); ?>/recursos/images/5.jpg' alt=' ' class='img-responsive' />
+								<img src='".base_url()."/recursos/images/img_2.jpg' alt=' ' class='img-responsive' />
 							</div>
 							<div class='col-md-8 banner-bottom-left2r'>
-								<ul>
-									<li><a href='single.html'>Sed ut perspiciatis unde omnis</a></li>
-									<li><a href='single.html'>But I must explain to you</a></li>
-									<li><a href='single.html'>Neque porro quisquam est, qui</a></li>
-									<li><a href='single.html'>Quis autem vel eum iure reprehend</a></li>
-								</ul>
+								<ul>";
+                                                                    for($i=0; $i < count($this->servicios);$i++)
+                                                                    {
+                                                                        $html.="<li><a href='single.html'>".$this->servicios[$i]["descripcion"]."</a></li>";
+                                                                    }
+                                                        $html.="</ul>
 							</div>
 							<div class='clearfix'> </div>
 						</div>
 					</div>
 					<div class='col-md-5 banner-bottom-right'>
-						<div class='newsletter'>
-							<h1>Newsletter</h1>
+						<div class='newsletter' style='padding-bottom: 190px;'>
+							
 							<form>
-								<input type='email' value='Email' onfocus='this.value = '';' onblur='if (this.value == '') {this.value = 'Email';}' required=''>
-								<input type='submit' value='Subscribe' >
+                                                            <div id='presupeste_obra'>
+                                                                <h1>PRESUPUESTE SU OBRA</h1>
+                                                                <div class='col-md-7 col-xs-12' style='margin-top: 5px;'>
+                                                                    <div id='intro'>
+                                                                        <select class='form-control' id='rubro_calcular_obra'>
+                                                                            <option value='nada'>seleccione</option>";
+                                                                            for($i=0; $i < count($this->rubros);$i++)
+                                                                            {
+                                                                                $html.="<option value='".$this->rubros[$i]["codigo"]."'>".$this->rubros[$i]["descripcion"]."</option>";
+                                                                            }
+                                                                 $html.="</select>
+                                                                    </div>
+                                                                </div>
+                                                                <div class='col-md-5 col-xs-12' style='margin-top: 5px;'>
+                                                                    <input type='text' class='form-control' placeholder='Ingrese cant.' id='cantidad_calcular_obra'>
+                                                                </div>
+                                                                <div class='col-md-offset-7 col-md-5 col-xs-12' style='margin-top: 5px;'>
+                                                                    <input type='button' class='btn btn-default form-control' value='calcular' style='color: #fff;font-weight: bold;background-color:#f65a5b;border-color:#f65a5b;' onClick='calcular_obra();'/>
+                                                                </div>
+                                                            </div>
+                                                            
+                                                            <div hidden='true' id='resultado_presupuesto'>
+                                                                <div class='col-md-12 col-xs-12' id='resultado_presupuesto_contenido' style='margin-top: 5px;'>
+                                                                    
+                                                                </div>
+                                                            </div>
 							</form>
 						</div>
 						<div class='news'>
-							<h3>Our News</h3>
-							<p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.</p>
+							<h3>¿Como Presupuestar su trabajo?</h3>
+							<p>Pasamos a explicarle como presupuestar estimativamente su obra. Por 	ejemplo:  Si tiene un trabajo de pintura de 20 mt cuadrados una pared de 10 x 2 mtr.</p>
 							<ul>
-								<li><a href='single.html'>Sed ut perspiciatis unde omnis</a></li>
-								<li><a href='single.html'>But I must explain to you</a></li>
-								<li><a href='single.html'>Neque porro quisquam est, qui</a></li>
-								<li><a href='single.html'>Quis autem vel eum iure reprehend</a></li>
-								<li><a href='single.html'>Temporibus autem quibusdam et aut</a></li>
-								<li><a href='single.html'>Lorem Ipsum is not simply random</a></li>
+								<li><a href='#' onClick='return false;'>Seleccione tipo: Pintura</a></li>
+								<li><a href='#' onClick='return false;'>Ingrese la cantidad total de metros cuadrados</a></li>
+								<li><a href='#' onClick='return false;'>Haga clic en calcular</a></li>
+								<li><a href='#' onClick='return false;'>El sistema le mostrara estimativo el precio de su trabajo.</a></li>
 							</ul>
 						</div>
 					</div>
@@ -521,241 +550,45 @@ class Template
         $html=
         "<!-- gallery -->
 				<div class='gallery'>
-					<h1>Photo Gallery</h1>
-					<h2 class='title1'>But I must explain to you how all this mistaken idea of denouncing pleasure.</h2>
-					<div class='gallery-grids'>
-						<div class='gallery-grid'>
-							<a href='#portfolioModal1' class='portfolio-link' data-toggle='modal'>
-								<img src='images/4.jpg' class='img-responsive' alt='' />
-							</a>
-						</div>
-						<div class='gallery-grid1'>
-							<a href='#portfolioModal2' class='portfolio-link' data-toggle='modal'>
-								<img src='images/7.jpg' class='img-responsive' alt='' />
-							</a>
-						</div>
-						<div class='gallery-grid'>
-							<a href='#portfolioModal3' class='portfolio-link' data-toggle='modal'>
-								<img src='images/6.jpg' class='img-responsive' alt='' />
-							</a>
-						</div>
-						<div class='gallery-grid1'>
-							<a href='#portfolioModal4' class='portfolio-link' data-toggle='modal'>
-								<img src='images/8.jpg' class='img-responsive' alt='' />
-							</a>
-						</div>
-						<div class='clearfix'> </div>
-					</div>
-					<div class='gallery-grids'>
-						<div class='gallery-grid1'>
-							<a href='#portfolioModal5' class='portfolio-link' data-toggle='modal'>
-								<img src='images/9.jpg' class='img-responsive' alt='' />
-							</a>
-						</div>
-						<div class='gallery-grid'>
-							<a href='#portfolioModal6' class='portfolio-link' data-toggle='modal'>
-								<img src='images/11.jpg' class='img-responsive' alt='' />
-							</a>
-						</div>
-						<div class='gallery-grid1'>
-							<a href='#portfolioModal7' class='portfolio-link' data-toggle='modal'>
-								<img src='images/10.jpg' class='img-responsive' alt='' />
-							</a>
-						</div>
-						<div class='gallery-grid'>
-							<a href='#portfolioModal8' class='portfolio-link' data-toggle='modal'>
-								<img src='images/12.jpg' class='img-responsive' alt='' />
-							</a>
-						</div>
-						<div class='clearfix'> </div>
-					</div>
-				</div>
+					<h1>Obras</h1>
+					<h2 class='title1'>Nuestro trabajo</h2>";
+                                            for($i=0; $i < count($this->fotos_obras);$i++)
+                                            {
+						$html.="<a href='#portfolioModal".$i."' class='portfolio-link' data-toggle='modal' style='display: inline-block !important;'>
+								<img src='".base_url()."recursos/images/".$this->fotos_obras[$i]["imagen"]."' class='img-responsive' alt='' width='200' height='200' />
+							</a>";
+                                            }
+						
+				$html.="</div>
 			<!-- //gallery -->
-			<!-- gallery-Modals -->
-				<div class='portfolio-modal modal fade slideanim' id='portfolioModal1' tabindex='-1' role='dialog' aria-hidden='true'>
-					<div class='modal-content'>
-						<div class='close-modal' data-dismiss='modal'>
-							<div class='lr'>
-								<div class='rl'></div>
-							</div>
-						</div>
-						<div class='portfolio-container'>
-							<div class='row'>
-								<div class='col-lg-8 col-lg-offset-2 gallery-pop-up'>
-									<div class='modal-body'>
-										<h3>Photographer</h3>
-										<hr>
-										<img src='images/4.jpg' class='img-responsive img-centered' alt='' />
-										<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-										Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-										when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class='portfolio-modal modal fade slideanim' id='portfolioModal2' tabindex='-1' role='dialog' aria-hidden='true'>
-					<div class='modal-content'>
-						<div class='close-modal' data-dismiss='modal'>
-							<div class='lr'>
-								<div class='rl'></div>
-							</div>
-						</div>
-						<div class='portfolio-container'>
-							<div class='row'>
-								<div class='col-lg-8 col-lg-offset-2 gallery-pop-up'>
-									<div class='modal-body'>
-										<h3>Photographer</h3>
-										<hr>
-										<img src='images/7.jpg' class='img-responsive img-centered' alt='' />
-										<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-										Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-										when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class='portfolio-modal modal fade slideanim' id='portfolioModal3' tabindex='-1' role='dialog' aria-hidden='true'>
-					<div class='modal-content'>
-						<div class='close-modal' data-dismiss='modal'>
-							<div class='lr'>
-								<div class='rl'></div>
-							</div>
-						</div>
-						<div class='portfolio-container'>
-							<div class='row'>
-								<div class='col-lg-8 col-lg-offset-2 gallery-pop-up'>
-									<div class='modal-body'>
-										<h3>Photographer</h3>
-										<hr>
-										<img src='images/6.jpg' class='img-responsive img-centered' alt='' />
-										<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-										Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-										when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class='portfolio-modal modal fade slideanim' id='portfolioModal4' tabindex='-1' role='dialog' aria-hidden='true'>
-					<div class='modal-content'>
-						<div class='close-modal' data-dismiss='modal'>
-							<div class='lr'>
-								<div class='rl'></div>
-							</div>
-						</div>
-						<div class='portfolio-container'>
-							<div class='row'>
-								<div class='col-lg-8 col-lg-offset-2 gallery-pop-up'>
-									<div class='modal-body'>
-										<h3>Photographer</h3>
-										<hr>
-										<img src='images/8.jpg' class='img-responsive img-centered' alt='' />
-										<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-										Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-										when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class='portfolio-modal modal fade slideanim' id='portfolioModal5' tabindex='-1' role='dialog' aria-hidden='true'>
-					<div class='modal-content'>
-						<div class='close-modal' data-dismiss='modal'>
-							<div class='lr'>
-								<div class='rl'></div>
-							</div>
-						</div>
-						<div class='portfolio-container'>
-							<div class='row'>
-								<div class='col-lg-8 col-lg-offset-2 gallery-pop-up'>
-									<div class='modal-body'>
-										<h3>Photographer</h3>
-										<hr>
-										<img src='images/9.jpg' class='img-responsive img-centered' alt='' />
-										<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-										Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-										when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class='portfolio-modal modal fade slideanim' id='portfolioModal6' tabindex='-1' role='dialog' aria-hidden='true'>
-					<div class='modal-content'>
-						<div class='close-modal' data-dismiss='modal'>
-							<div class='lr'>
-								<div class='rl'></div>
-							</div>
-						</div>
-						<div class='portfolio-container'>
-							<div class='row'>
-								<div class='col-lg-8 col-lg-offset-2 gallery-pop-up'>
-									<div class='modal-body'>
-										<h3>Photographer</h3>
-										<hr>
-										<img src='images/11.jpg' class='img-responsive img-centered' alt='' />
-										<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-										Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-										when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class='portfolio-modal modal fade slideanim' id='portfolioModal7' tabindex='-1' role='dialog' aria-hidden='true'>
-					<div class='modal-content'>
-						<div class='close-modal' data-dismiss='modal'>
-							<div class='lr'>
-								<div class='rl'></div>
-							</div>
-						</div>
-						<div class='portfolio-container'>
-							<div class='row'>
-								<div class='col-lg-8 col-lg-offset-2 gallery-pop-up'>
-									<div class='modal-body'>
-										<h3>Photographer</h3>
-										<hr>
-										<img src='images/10.jpg' class='img-responsive img-centered' alt='' />
-										<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-										Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-										when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class='portfolio-modal modal fade slideanim' id='portfolioModal8' tabindex='-1' role='dialog' aria-hidden='true'>
-					<div class='modal-content'>
-						<div class='close-modal' data-dismiss='modal'>
-							<div class='lr'>
-								<div class='rl'></div>
-							</div>
-						</div>
-						<div class='portfolio-container'>
-							<div class='row'>
-								<div class='col-lg-8 col-lg-offset-2 gallery-pop-up'>
-									<div class='modal-body'>
-										<h3>Photographer</h3>
-										<hr>
-										<img src='images/12.jpg' class='img-responsive img-centered' alt='' />
-										<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-										Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-										when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+			<!-- gallery-Modals -->";
+                                for($i=0; $i < count($this->fotos_obras);$i++)
+                                {
+                                    $html.="
+                                    <div class='portfolio-modal modal fade slideanim' id='portfolioModal".$i."' tabindex='-1' role='dialog' aria-hidden='true'>
+                                            <div class='modal-content'>
+                                                    <div class='close-modal' data-dismiss='modal'>
+                                                            <div class='lr'>
+                                                                    <div class='rl'></div>
+                                                            </div>
+                                                    </div>
+                                                    <div class='portfolio-container'>
+                                                            <div class='row'>
+                                                                    <div class='col-lg-8 col-lg-offset-2 gallery-pop-up'>
+                                                                            <div class='modal-body'>
+                                                                                    <h3>Trabajando</h3>
+                                                                                    <hr>
+                                                                                    <img src='".base_url()."recursos/images/".$this->fotos_obras[$i]["imagen"]."' class='img-responsive img-centered' alt='' />
+                                                                                    <p>".$this->fotos_obras[$i]["descripcion"]."</p>
+                                                                            </div>
+                                                                    </div>
+                                                            </div>
+                                                    </div>
+                                            </div>
+                                    </div>";
+                                }
+                                $html.="
+				
 			<!-- //gallery-Modals -->";
         return $html;
     }
