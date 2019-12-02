@@ -15,9 +15,15 @@ class HomeController extends BaseController {
 	|
 	*/
 
-	public function showWelcome()
-	{
-		return View::make('hello');
-	}
+	        
+        public function saludo(){
+            $datos = [
+                'titulo' => 'AsProFactory'
+                
+                ];
+            return View::make('saludo', $datos);
+        }
+        
+        
 
 }

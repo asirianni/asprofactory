@@ -121,7 +121,8 @@ return array(
 		'Illuminate\Translation\TranslationServiceProvider',
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
-		'Illuminate\Workbench\WorkbenchServiceProvider',
+		'Illuminate\Workbench\WorkbenchServiceProvider',	
+                Collective\Html\HtmlServiceProvider::class,
 
 	),
 
@@ -189,6 +190,10 @@ return array(
 		'URL'             => 'Illuminate\Support\Facades\URL',
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
+                'Form' => 'Collective\Html\FormFacade',
+                'Html' => 'Collective\Html\HtmlFacade',
+                'Form' => 'Collective\Html\FormFacade',
+                'Html' => 'Collective\Html\HtmlFacade',
 
 	),
 
