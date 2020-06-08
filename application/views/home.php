@@ -6,7 +6,9 @@
 
         <META name="viewport" content="width=device-width, initial-scale=1">
         <META http-equiv="X-UA-Compatible" content="IE=edge">
-        <META name="description" content="sistemas informaticos a medida en php, facturas electronicas, distribuimos sistemas lomasoft, desde cordoba para todo el pais">
+        <META name="description" content="sistemas informaticos a medida en php, facturas electronicas, 
+              distribuimos sistemas lomasoft, integraciones de sistemas vtex, mercadopago, tiendanube, mercadolibre, 
+              desde cordoba para todo el pais">
         <!-- Title -->
         <title><?php echo $titulo["dato"];?></title>
         
@@ -33,7 +35,7 @@
         <link rel="stylesheet" href="<?php echo base_url()?>recursos/css/responsive.css">
         
         <!--<script type="text/javascript" charset="UTF-8" src="<?php echo base_url()?>recursos/js/common.js"></script>-->
-	<script type="text/javascript" charset="UTF-8" src="<?php // echo base_url()?>recursos/js/util.js"></script>
+	<!--<script type="text/javascript" charset="UTF-8" src="<?php // echo base_url()?>recursos/js/util.js"></script>-->
 	<!--<script type="text/javascript" charset="UTF-8" src="<?php echo base_url()?>recursos/js/map.js"></script>-->
 	<!--<script type="text/javascript" charset="UTF-8" src="<?php echo base_url()?>recursos/js/marker.js"></script>-->
 	<style type="text/css">
@@ -84,14 +86,14 @@
                 right:0px;
             }
         </style>
-	<script type="text/javascript" charset="UTF-8" src="<?php echo base_url()?>recursos/js/onion.js"></script>
-	<script type="text/javascript" charset="UTF-8" src="<?php echo base_url()?>recursos/js/stats.js"></script>
-	<script type="text/javascript" charset="UTF-8" src="<?php echo base_url()?>recursos/js/controls.js"></script>
+	<!--<script type="text/javascript" charset="UTF-8" src="<?php echo base_url()?>recursos/js/onion.js"></script>-->
+	<!--<script type="text/javascript" charset="UTF-8" src="<?php echo base_url()?>recursos/js/stats.js"></script>-->
+	<!--<script type="text/javascript" charset="UTF-8" src="<?php echo base_url()?>recursos/js/controls.js"></script>-->
     </head>
     <body>
         <!--<a class='flotante' href='https://api.whatsapp.com/send?phone=5491162979311&text=Hola!%20Quiero%20consultar!' ><img class="img-responsive" src='<?php echo base_url()?>recursos/img/boton-flotante.jpg' border="0"/></a>-->
         <div id="fb-root"></div>
-        <script>(function(d, s, id) {
+        <script >(function(d, s, id) {
           var js, fjs = d.getElementsByTagName(s)[0];
           if (d.getElementById(id)) return;
           js = d.createElement(s); js.id = id;
@@ -289,12 +291,18 @@
                             
                         </div>
                     </div>
+                    <div class="col-xs-12">
+                        <div class="section-title text-center">
+                            <h3>Comunicamos su sistema de facturacion o desarrollo en: VTEX, Tiendanube, MercadoPago, MercadoLibre</h3>
+                            <img src="<?php echo base_url()?>recursos/img/marcas.png" style="width: 50%"> 
+                        </div>
+                    </div>
                     <div class="col-lg-4 col-sm-6">
                         <div class="service-box">
                             
                             <img src="<?php echo base_url()?>recursos/img/creative.png" alt="service image" draggable="false"> <!-- Service Image -->
                             <h3>Consultoria</h3>
-                            <p>Lo ayudamos a ordenar su negocio. Cuente con nuestra ayuda para tener un circuito de informacion.</p>
+                            <p>Experiencia en las Apis publicas de los plataformas mas modernas .</p>
                             
                         </div>
                     </div>
@@ -488,9 +496,9 @@
         <!-- mixitup js -->
         <script src="<?php echo base_url()?>recursos/js/jquery.mixitup.js"></script>      
         <!-- Map Key API -->
-        <script src="<?php echo base_url()?>recursos/js/js"></script>
+        <!--<script src="<?php echo base_url()?>recursos/js/js"></script>-->
         <!-- Map js -->
-        <script src="<?php echo base_url()?>recursos/js/map.js"></script>
+        <!--<script src="<?php echo base_url()?>recursos/js/map.js"></script>-->
         <!-- Start Owl Carousel -->
         <script src="<?php echo base_url()?>recursos/js/owl.carousel.min.js"></script>
         <!-- Magnific Popup Js -->
