@@ -53,7 +53,10 @@ class Welcome extends CI_Controller {
         
         public function enviar_formulario()
 	{
-            
+            $datos_salida=array(
+                "texto"=>"error al enviar mensaje, por favor intente mas tarde!",
+                "exito"=>false
+            );
             $nombre=$this->input->post("nombre");
             $correo=$this->input->post("correo");
             $telefono=$this->input->post("telefono");
@@ -74,17 +77,63 @@ class Welcome extends CI_Controller {
 
             $this->email->initialize($config);
 
-            $this->email->from($correo);
+            $this->email->from("pedidos@asprofactory.com");
             $this->email->to($correo_envio);
 
             $this->email->subject("CONSULTA DESDE EL PORTAL - AsProFactory");
             $this->email->message($cuerpo_menje);
-
-            $this->email->send();
-            $this->index();
-
             
+            //validacion de captcha
+            define("RECAPTCHA_V3_SECRET_KEY", '6LePeYwUAAAAAC9789Cxxgh7gCgC55EVHZ_hqbXh');
+ 
+            $token = $this->input->post("token");
+            
+            $action = $this->input->post("action");
+            
+            //$action = $_POST['action'];
+
+            // call curl to POST request
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL,"https://www.google.com/recaptcha/api/siteverify");
+            curl_setopt($ch, CURLOPT_POST, 1);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query(array('secret' => RECAPTCHA_V3_SECRET_KEY, 'response' => $token)));
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            $response = curl_exec($ch);
+            curl_close($ch);
+            $arrResponse = json_decode($response, true);
+            
+            // verify the response
+            if($arrResponse["success"] == '1' && $arrResponse["action"] == $action && $arrResponse["score"] >= 0.5) {
+                
+                $datos_salida["texto"]="Mensaje enviado!";
+                $datos_salida["exito"]=true;
+                $this->email->send();
+                
+            } 
+            
+            echo json_encode($datos_salida);
         }
+        
+        public function verificar_google() {
+                       
+            define("RECAPTCHA_V3_SECRET_KEY", '6LePeYwUAAAAAC9789Cxxgh7gCgC55EVHZ_hqbXh');
+ 
+            $token = $this->input->post("token");
+            //$action = $_POST['action'];
+
+            // call curl to POST request
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL,"https://www.google.com/recaptcha/api/siteverify");
+            curl_setopt($ch, CURLOPT_POST, 1);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query(array('secret' => RECAPTCHA_V3_SECRET_KEY, 'response' => $token)));
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            $response = curl_exec($ch);
+            curl_close($ch);
+            $arrResponse = json_decode($response, true);
+
+            var_dump($arrResponse);
+        }
+        
 
         public function politicas(){
             $this->load->view('politicas');

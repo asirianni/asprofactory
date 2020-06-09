@@ -422,20 +422,22 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <form action="<?php echo base_url()?>index.php/welcome/enviar_formulario" method="post">
+                                <form action="<?php echo base_url()?>index.php/welcome/enviar_formulario" method="post" id="formulario">
                                     <div class="row">
                                         <div class="col-xs-12">
-                                            <input type="text" placeholder="Nombre" required="" name="nombre">
+                                            <input type="text" placeholder="Nombre" required="true" name="nombre" id="nombre">
                                         </div>
                                         <div class="col-xs-12">
-                                            <input type="email" placeholder="Correo" required="" name="correo">
+                                            <input type="email" placeholder="Correo" required="true" name="correo" id="correo">
                                         </div>
                                         <div class="col-xs-12">
-                                            <input type="text" placeholder="Telefono" required="" name="telefono">
+                                            <input type="text" placeholder="Telefono" required="true" name="telefono" id="telefono">
                                         </div>
                                         <div class="col-xs-12">
-                                            <textarea placeholder="Mensaje" name="mensaje"></textarea>
-                                            <input type="submit" value="Enviar">
+                                            <textarea placeholder="Mensaje" name="mensaje" required="true" id="mensaje"></textarea>
+                                            <input type="button"  onclick="enviar()" value="enviar" />
+                                            
+                                          
                                         </div>
                                     </div>
                                 </form>
@@ -486,6 +488,76 @@
                 var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x);
             })();
         </script>
+        
+        <script src="https://www.google.com/recaptcha/api.js?render=6LePeYwUAAAAAEGbAu1o5oRiburjY1z39xsrbNXe"></script>
+        
+        <script>
+            function enviar(){
+                event.preventDefault();
+                var nombre = $('#nombre').val();
+                var telefono = $('#telefono').val();
+                var correo = $('#correo').val();
+                var mensaje = $('textarea#mensaje').val();
+                
+                console.log(nombre);
+                console.log(telefono);
+                console.log(correo);
+                console.log(mensaje);
+                
+                if(nombre===""){
+                    alert("Por favor complete el campo nombre");
+                }else{
+                    if(correo===""){
+                        alert("Por favor complete el campo correo");
+                    }else{
+                        if(telefono===""){
+                            alert("Por favor complete el campo telefono");
+                        }else{
+                            if(mensaje===""){
+                                alert("Por favor complete el campo mensaje");
+                            }else{
+                                grecaptcha.ready(function() {
+                                    grecaptcha.execute('6LePeYwUAAAAAEGbAu1o5oRiburjY1z39xsrbNXe', {action: 'submit'}).then(function(token) {
+
+
+                                        $.ajax({
+                                            async: false,
+                                            type: "POST",
+                                            url: "<?php echo base_url()?>index.php/welcome/enviar_formulario",
+                                            data:{token:token,action:"submit",nombre:nombre,correo:correo,telefono:telefono,mensaje:mensaje},
+                                            success:function(data){
+                                                 //alert(data);
+                                                data = JSON.parse(data);
+
+                                                if(data.exito){
+                                                    alert(data.texto);
+
+                                                }else{
+                                                    alert(data.texto);
+                                                }
+                                            },
+                                            error:function(data){
+                                                console.log(data);
+                                            }
+                                        });
+
+
+
+                                    });;
+                                });
+                            }
+                        }
+                    }
+                }
+                
+                
+                
+                
+            }
+            
+        </script>
+        
+        
         <!-- /WhatsHelp.io widget -->
         <!-- Jquery -->
         <script src="<?php echo base_url()?>recursos/js/jquery-3.3.1.min.js"></script>
