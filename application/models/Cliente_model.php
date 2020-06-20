@@ -10,6 +10,11 @@
 
  */
 
+if( ! ini_get('date.timezone') )
+{
+    date_default_timezone_set('America/Argentina/Buenos_Aires');
+}
+
 class Cliente_model extends CI_Model {
 
     public function __construct() {
@@ -99,20 +104,19 @@ class Cliente_model extends CI_Model {
         return $query->result_array();
     }
     
-    public function insertar($id_movimiento,$fecha,$id_cliente,$total,$reparto,$id_usuario) {
-                
+    public function insertar($razon_social,$telefono) {
+        $fecha_alta= date("Y-m-d");        
+        
         $data = array(
             
-            'id_movimiento'=>$id_movimiento,
-            'fecha'=>$fecha,
-            'id_cliente'=>$id_cliente,
-            'total'=>$total,
-            'id_reparto_detalle'=>$reparto,
-            'id_usuario'=>$id_usuario
+            'razon_social'=>$razon_social,
+            'telefono'=>$telefono,
+            'fecha_alta'=>$fecha_alta,
+            'estado'=>1
             
         );
 
-        $accion=$this->db->insert('movimiento_cliente', $data);
+        $accion=$this->db->insert('clientes', $data);
         $insertId = $this->db->insert_id();
         
         return array(

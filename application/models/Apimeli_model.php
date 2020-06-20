@@ -10,18 +10,20 @@
 
  */
 
-class Huevos_model extends CI_Model {
+class Apimeli_model extends CI_Model {
 
     public function __construct() {
         parent::__construct ();
         $this->load->database();
     }
     
-    public function get_huevos_parametros_cantidades($id){
-        $sql="select * from huevos where id=$id";
+    public function get_api_meli(){
+        $sql="SELECT * FROM api_meli";
+        
         $query = $this->db->query($sql);
-        return $query->row_array();
+        
+        return $query->result_array();
 		
     }
-}
     
+}
