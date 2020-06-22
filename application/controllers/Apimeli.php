@@ -117,6 +117,46 @@ class Apimeli extends CI_Controller {
         }
         echo json_encode($listado);
     }
+    // se insertan las credenciales creadas desde la app y se persisten los datos creados
+    public function update_api_meli() {
+        $token = $this->input->post("token");
+        
+        if($token==$this->token_acces){
+            $id=$this->input->post("id");
+            $access_token=$this->input->post("access_token");
+            $expires_in=$this->input->post("expires_in");
+            $refresh_token=$this->input->post("refresh_token");
+            
+            
+            $this->load->helper(array('form', 'url'));
+
+                $this->load->library('form_validation');
+                $this->form_validation->set_rules('access_token', 'access_token', 'required');
+                $this->form_validation->set_rules('expires_in', 'expires_in', 'required');
+                $this->form_validation->set_rules('refresh_token', 'refresh_token', 'required');
+                
+                if ($this->form_validation->run() == FALSE)
+                {
+                    $listado=array(
+                        "code" =>"400",
+                        "error" =>"campos incorrectos" 
+                     ); 
+                }
+                else
+                {
+                    $listado= $this->Apimeli_model->actualizar($id,$access_token,$expires_in,$refresh_token);
+                }           
+            
+            
+        }else{
+            $listado=array(
+               "code" =>"401",
+               "error" =>"Unauterized=el token no es valido" 
+            );
+        }
+        echo json_encode($listado);
+    }
+    
     // para verificar si existe el usser id en la base de datos y luego verificar si se inserta o se actualizar los tokens
     public function existe_usuario() {
         $token = $this->input->post("token");
@@ -127,7 +167,8 @@ class Apimeli extends CI_Controller {
             if(!empty($listado)){
                 $listado=array(
                     "code" =>"200",
-                    "existe" =>true
+                    "existe" =>true,
+                    "id_meli" =>$listado["id"]
                  ); 
             }else{
                 $listado=array(

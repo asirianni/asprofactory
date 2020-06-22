@@ -36,7 +36,8 @@ class Apimeli_model extends CI_Model {
     }
     
     public function insertar($id_cliente,$user_id,$code,$access_token,$expires_in,$refresh_token,$endpoint) {
-
+        date_default_timezone_set('America/Argentina/Buenos_Aires');
+        $fecha=date("Y-m-d H:i:s");
         $data = array(
             
             'id_cliente'=>$id_cliente,
@@ -47,6 +48,7 @@ class Apimeli_model extends CI_Model {
             'refresh_token'=>$refresh_token,
             'endpoint'=>$endpoint,
             'estado'=>'activo',
+            'fecha'=>$fecha,
         );
 
         $accion=$this->db->insert('api_meli', $data);
@@ -55,6 +57,26 @@ class Apimeli_model extends CI_Model {
         return array(
             'exito'=>$accion,
             'id'=>$insertId
+        );
+    }
+    
+    public function actualizar($id,$access_token,$expires_in,$refresh_token){
+        date_default_timezone_set('America/Argentina/Buenos_Aires');
+        $fecha=date("Y-m-d H:i:s");
+    	$datos = Array(
+                'access_token'=>$access_token,
+                'expires_in'=>$expires_in,
+                'refresh_token'=>$refresh_token,
+                'fecha'=>$fecha,
+            );
+            
+        $this->db->where("id",$id);
+        $accion= $this->db->update("api_meli",$datos);
+        
+        return array(
+            'exito'=>$accion,
+            'id'=>$id,
+            'actualizacion'=>$fecha
         );
     }
     
