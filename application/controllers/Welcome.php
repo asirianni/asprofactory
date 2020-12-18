@@ -77,14 +77,14 @@ class Welcome extends CI_Controller {
 
             $this->email->initialize($config);
 
-            $this->email->from("pedidos@asprofactory.com");
+            $this->email->from("pedidos@asprofactory.net");
             $this->email->to($correo_envio);
 
             $this->email->subject("CONSULTA DESDE EL PORTAL - AsProFactory");
             $this->email->message($cuerpo_menje);
             
             //validacion de captcha
-            define("RECAPTCHA_V3_SECRET_KEY", '6LePeYwUAAAAAC9789Cxxgh7gCgC55EVHZ_hqbXh');
+            define("RECAPTCHA_V3_SECRET_KEY", '6LezCAAaAAAAAL4iWrabtHckSNdzLj8FCWFQc2gn');
  
             $token = $this->input->post("token");
             
