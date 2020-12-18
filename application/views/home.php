@@ -489,7 +489,7 @@
             })();
         </script>
         
-        <script src="https://www.google.com/recaptcha/api.js?render=6LePeYwUAAAAAEGbAu1o5oRiburjY1z39xsrbNXe"></script>
+        <script src="https://www.google.com/recaptcha/api.js?render=6LezCAAaAAAAAGOPFdRWkq-3VvLJMEO32i-iLWHk"></script>
         
         <script>
             function enviar(){
@@ -517,7 +517,7 @@
                                 alert("Por favor complete el campo mensaje");
                             }else{
                                 grecaptcha.ready(function() {
-                                    grecaptcha.execute('6LePeYwUAAAAAEGbAu1o5oRiburjY1z39xsrbNXe', {action: 'submit'}).then(function(token) {
+                                    grecaptcha.execute('6LezCAAaAAAAAGOPFdRWkq-3VvLJMEO32i-iLWHk', {action: 'submit'}).then(function(token) {
 
 
                                         $.ajax({
