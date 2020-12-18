@@ -7,11 +7,16 @@ if( ! ini_get('date.timezone') )
 
 class Apimeli extends CI_Controller {
     public $token_acces="";
+    public $appId = '2346822068167696';
+    public $secretKey = 'Woc6mPz0zvgKO0Z1IAoRvSvQWqmcj5KL';
+    public $redirectURI = 'http://asprofactory.com/mercadolibre/';
+    public $siteId = 'MLA';
     
     public function __construct(){
         parent::__construct();
         $this->load->model('Apimeli_model');
         $this->load->model('Cliente_model');
+        
         $this->load->model('Configuracion_model');
         $base_token=$this->Configuracion_model->get_configuracion(8);
         $this->token_acces=$base_token["dato"];
@@ -21,21 +26,7 @@ class Apimeli extends CI_Controller {
         $base_token=$this->Configuracion_model->get_configuracion(8);
         echo json_encode($base_token);
     }
-    // se obtine el listado de las cuentas creadas de mercadolibre de la base de datos
-    public function get_api_meli() {
-        $token = $this->input->post("token");
-        if($token==$this->token_acces){
-            $listado= $this->Apimeli_model->get_api_meli();
-            
-        }else{
-            $listado=array(
-               "code" =>"401",
-               "error" =>"Unauterized=el token no es valido" 
-            );
-        }
-        echo json_encode($listado);
-        
-    }
+    
     // se insertar por api los clientes que se crean en la app de meli
     public function insert_cliente_api_meli() {
         $token = $this->input->post("token");
@@ -184,5 +175,95 @@ class Apimeli extends CI_Controller {
             );
         }
         echo json_encode($listado);
+    }
+    
+    //////////////////////////////////////////////////////////////////////
+    
+    /// API PARA OBTENER LOS DATOS DE LAS TIENDAS
+    
+    //////////////////////////////////////////////////////////////////////
+    
+    // se obtine el listado de las cuentas creadas de mercadolibre de la base de datos
+    public function get_api_meli() {
+        $token = $this->input->post("token");
+        if($token==$this->token_acces){
+            $listado= $this->Apimeli_model->get_api_meli();
+            
+        }else{
+            $listado=array(
+               "code" =>"401",
+               "error" =>"Unauterized=el token no es valido" 
+            );
+        }
+        echo json_encode($listado);
+        
+    }
+    
+    public function productos_tienda(){
+        $token = $this->input->post("token");
+        $id = $this->input->post("id_tienda");
+        
+        if($token==$this->token_acces){
+            $datos_tienda= $this->Apimeli_model->get_api_meli_id($id);
+            
+            if(!empty($datos_tienda)){
+                
+                
+                $this->load->library('Meli');
+                $meli = new Meli($this->appId, $this->secretKey,$datos_tienda["access_token"],$datos_tienda["refresh_token"]);
+                
+//                echo(date("Y-m-d",$datos_tienda['expires_in']));
+//                echo '<br>';
+//                echo(date("Y-m-d",time()));
+//                echo '<br>';
+//                echo(date("Y-m-d",1605331558));
+                
+                
+                 
+                if($datos_tienda['expires_in'] < time()) {
+                    echo  'expiro';
+                    try {
+                        print_r($meli->refreshAccessToken());
+                    } catch (Exception $e) {
+                        echo "Exception: ",  $e->getMessage(), "\n";
+                    }
+                        
+                }else{
+                    echo  'no expiro';
+                   
+                    
+                }
+                
+                die();
+                
+                
+                
+                $listado=array(
+                   "code" =>"200",
+                   
+                   "tienda" => $datos_tienda
+                );
+                
+            }else{
+                $listado=array(
+                   "code" =>"401",
+                   "error" =>"el campo id no tiene datos registrados" 
+                );
+            }
+            
+            
+            
+            
+        }else{
+            $listado=array(
+               "code" =>"401",
+               "error" =>"Unauterized=el token no es valido" 
+            );
+        }
+        echo json_encode($listado);
+    }
+    
+    public function functionName($param) {
+        
     }
 }

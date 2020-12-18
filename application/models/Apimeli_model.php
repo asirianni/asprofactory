@@ -35,6 +35,15 @@ class Apimeli_model extends CI_Model {
 		
     }
     
+    public function get_api_meli_id($id){
+        $sql="SELECT * FROM api_meli where id=$id";
+        
+        $query = $this->db->query($sql);
+        
+        return $query->row_array();
+		
+    }
+    
     public function insertar($id_cliente,$user_id,$code,$access_token,$expires_in,$refresh_token,$endpoint) {
         date_default_timezone_set('America/Argentina/Buenos_Aires');
         $fecha=date("Y-m-d H:i:s");
